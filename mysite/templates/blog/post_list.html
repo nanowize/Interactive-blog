@@ -1,0 +1,138 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+{% include 'blog/snippets/alert_snippets.html' %}
+
+ <!--Section: Post-->
+ <section class="mt-4">
+
+    <!--Grid row-->
+    <div class="row">
+
+      <!--Grid column-->
+      <div class="col-md-8 mb-4">
+        <!--Card-->
+        <div class="card mb-4 align-items-center">
+          <div class="card-body">
+            <img src="static/img/logo.png" alt="logo image" width="200" height="100">
+          </div>
+          <!--Card content-->
+          <div class="card-body text-center">
+
+            <p>NANOWIZE is a multi-user blog web app using the Python - Django infrastructure, that gives a collective platform for young talented individuals,
+              who aspire to showcase their work to the right targeted audience. In an unlimited world of science. </p>
+
+            <h5 class="my-4">
+              <strong>NANOWIZE - trusted by over 100 + organizations &amp; industries</strong>
+            </h5>
+
+            <!-- Logo carousel -->
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="1800">
+              <div class="carousel-inner">
+                <!-- Second slide -->
+                <div class="carousel-item active carousel-item-left">
+                  <!--Grid row-->
+                  <div class="row">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                      <img src="static/AgricAI.png" class="align-items-center px-4" alt="AgricAI"
+                        style="max-height: 100px">
+                    </div>
+                  </div>
+                  <!--/Grid row-->
+                </div>
+                <!-- Second slide -->
+                <!-- Third slide -->
+                <div class="carousel-item carousel-item-next carousel-item-left">
+                  <!--Grid row-->
+                  <div class="row">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                      <img src="static/architecture.png" class="align-items-center px-4" alt="architecture"
+                        style="max-height: 100px">
+                    </div>
+                  </div>
+                  <!--/Grid row-->
+                </div>
+                <!-- Third slide -->
+                <!-- Fifth slide -->
+                <div class="carousel-item carousel-item-next carousel-item-left">
+                  <!--Grid row-->
+                  <div class="row">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                      <img src="static/FB_IMG.png" class="align-items-center px-4" alt="FB_IMG"
+                        style="max-height: 100px">
+                    </div>
+                  </div>
+                  <!--/Grid row-->
+                </div>
+                <!-- Fifth slide -->
+              </div>
+            </div>
+            <!-- Logo carousel -->
+
+            <hr>
+
+            <p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:post_create' %}">Create Blog</a></p>
+
+          </div>
+        </div>
+
+      <div class="card mb-4 wow fadeIn">
+        <!-- Blog posts-->
+        {% if posts %}
+          {% for p in posts %}
+            <div class="blog-post-container">
+              {% include 'blog/snippets/post_snippet.html' with post=post %}
+            </div>
+          {% endfor %}
+        {% else %}
+            <div class="blog-post-container">
+              {% include 'blog/snippets/post_snippet.html' with query=query %}
+            </div>
+        {% endif %}
+        <!-- End Blog posts-->
+
+        <!-- Pagination -->
+        <ul class="pagination pg-grey justify-content-center">
+          {% if posts.has_previous %}
+            <li class="page-item">
+              <a href="?page={{ posts.previous_page_number }}" class="page-link">&laquo;</a>
+            </li>
+          {% endif %}
+
+          {% for p in page_range %}
+            {% if posts.number == p %}
+              <li class="page-item active">
+                <a href="?page={{ p }}" class="page-link">{{ p }}</a>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a href="?page={{ p }}" class="page-link">{{ p }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if posts.has_next %}
+            <li class="page-item">
+              <a href="?page={{ posts.next_page_number }}" class="page-link">&raquo;</a>
+            </li>
+          {% endif %}
+        </ul>
+
+      </div>
+      </div>
+
+        <!--Lefthand Grid column-->
+        <!--Grid column-->
+      <div class="col-md-4 mb-4">
+      <!--Card-->
+        {% include 'blog/snippets/editorialpost_snippets.html' with post=post %}
+      <!--/.Card-->
+      </div>
+        <!--Grid column-->
+    </div>
+    <!--Grid row-->
+ </section>
+ <!--Section: Post-->
+{% endblock content %}
+
+{% block title %}Welcome to {{ block.super }}{% endblock %}

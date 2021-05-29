@@ -1,0 +1,39 @@
+{% load static %}
+
+<div class="row no-gutters">
+    <div class="col-md-2">
+        {% if post.author.profile.photo %}
+            <img src="{{ post.author.profile.photo.url }}" width=100 height=100 class="rounded-circle">
+        {% else %}
+            <img src="{% static 'img/dog.jpg' %}" width=100 height=100 class="rounded-circle">
+        {% endif %}
+    </div>
+    <div class="col-md-10">
+        <div class="card-body">
+            <h5 class="card-title">
+           Post Made By : {{ post.author|capfirst }}
+            </h5>
+            {% comment %}
+            <p class="small text-muted">
+                {% if post.author.profile.website_url %}
+                    <a href="{{ post.profile.website_url}}"> Website</a>
+                {% endif %}
+
+                {% if post.author.profile.facebook_url %}
+                    | <a href="{{ post.profile.facebook_url}}"> Facebook</a> |
+                {% endif %}
+
+                {% if post.author.profile.twitter_url %}
+                    |   <a href="{{ post.profile.twitter_url}}"> Twitter</a> |
+                {% endif %}
+
+            {% if post.author.profile.instagram_url %}
+                    |   <a href="{{ post.profile.instagram_url}}"> Instagram</a>
+            {% endif %}
+            </p>
+            <p class="card-text">
+                {{ post.profile.bio|slice:':105' }}
+            </p>{% endcomment %}
+        </div>
+    </div>
+</div>

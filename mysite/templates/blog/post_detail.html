@@ -1,0 +1,65 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}{{post.title}} | {{ block.super }}{% endblock %}
+{% block content %}
+{% include 'blog/snippets/alert_snippets.html' %}
+
+ <!--Section: Post-->
+	<div class="row">
+        
+        <!-- Blog Post -->
+        <!--Grid column-->
+        <div class="col-md-8 mb-4">
+            <div class="card align-items-center">
+                {% if post.header_image %}
+				    <a href="{{ p.get_absolute_url }}">
+					    <img class="card-body" src="{{ post.header_image.url }}" width=200 height=200>
+				    </a>
+			    {% endif %}
+                    <div class="card-body">
+                        <h2 class="text-center">{{ post.title }}</h2><hr/>
+                        <div><p class="card-text">{{ post.body|safe }} </p>
+                    </div>
+                    <div class="row gallery">
+                        {% for p in post.images_set.all %}
+                        {% if p.image %}
+                            <div class="col-md-3">
+                                <img src="{{ p.image.url }}" alt="Image Not Found" width="200" height="200" border="20px">
+                            </div>
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+                        <hr/>
+                    <div id="like-section">
+                        {% include 'blog/snippets/like_section.html' %}
+                    </div>
+                        <hr/>
+                    {% if post.author == request.user %}
+                    <div class="section-1" style="float:right;">
+                        <a href="{% url 'blog:post_edit' id=post.id %}">
+                            <button type="button" class="btn btn-outline-success">Edit</button>
+                        </a>
+                        <a href="{% url 'blog:post_delete' id=post.id %}" id="delete">
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posted on {{ post.created }}
+                    </div>
+            </div><br/><hr>
+
+
+                {% if not post.restrict_comment %}
+                        <!-- Comments -->
+                  <div class="main-comment-section">
+                    {% include 'blog/snippets/comments_snippets.html' %}
+                  </div>
+                      <!-- Comments End-->
+                {% endif %}
+    </div>
+ <!--Section: Ends-->   
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Settings{% endblock %}
+{% block content %}
+        <h1>Settings...</h1><br/>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <button class="btn btn-secondary">Update Settings</button>
+        </form>
+
+{% endblock content %}

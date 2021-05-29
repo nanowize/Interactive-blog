@@ -1,0 +1,100 @@
+{% load static %}
+ <!--Main Navigation-->
+
+ <header>
+
+        <!-- Navbar-->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+          <div class="container-fluid">
+            <div class="navbar-right">
+            <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Brand -->
+                <a class="nav-link brand" href="{% url 'post_list' %}">
+                  <strong class="green-text">NanoWize</strong>
+                </a>
+            </div>
+
+              <!-- Brand Ends -->
+
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">    
+              <!-- Left -->
+              <ul class="nav navbar-nav mr-auto">
+                              <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle  text-dark" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">A.I</a>
+                  <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="">bots</a>
+                    <a class="dropdown-item" href="">A.I Secure</a>
+                  </div>
+                </li>
+                              <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle  text-dark" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Utilities</a>
+                  <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'solar_page' %}">Solar-Inverter Installations</a>
+                    <a class="dropdown-item" href="{% url 'solar_page' %}">CCTV Installations</a>
+                    <a class="dropdown-item" href="{% url 'solar_page' %}">Heavy Electrical/Electronics Installations</a>
+                  </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle  text-dark" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Career</a>
+                  <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="">Books</a>
+                    <a class="dropdown-item" href="">Music</a>
+                    <a class="dropdown-item" href="">Apps</a>
+                  </div>
+                </li>
+              </ul>
+    
+              <!-- Right -->
+              <ul class="nav navbar-nav navbar-right">
+                <li class="search-bar mt-sm-2 mr-2">
+                    <form method="get" action="{% url 'post_list' %}">
+                        <input class="form-control" type="text" name="q" id="id_q" placeholder="Search...">
+                    </form>
+                </li>
+              </ul>
+            </div>
+
+              <a class="nav-brand">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle  text-dark" id="navbarDropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                            >Hi {{ request.user|capfirst }}
+                            {% if request.user.profile.photo %}
+                                <img src="{{ request.user.profile.photo.url }}" width=30 height=30 class="rounded-circle">
+                            {% else %}
+                              <img src="{% static 'img/dog.jpg' %}" width=30 height=30 class="rounded-circle">
+                            {% endif %}
+                            </a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                              <a class="dropdown-item" href="{% url 'user_logout' %}">Logout</a>
+                              {% if user.profile.id %}
+                                <a class="dropdown-item" href="{% url 'blog:user_profile' user.profile.id %}">Profile</a>
+                              {% else %}
+                                <a class="dropdown-item" href="{% url 'blog:create_profile_page' %}">Create Profile</a>
+                              {% endif %}
+                                <a class="dropdown-item" href="{% url 'blog:settings' %}">Settings</a>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                              <a href="{% url 'user_login' %}" class="nav-link">Log in</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+              </a>
+
+          </div>
+        </nav>
+        <!-- Navbar -->
+    
+      </header>

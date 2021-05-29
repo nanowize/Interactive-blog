@@ -1,0 +1,46 @@
+{% load static %}
+<style type="text/css">
+	.card{
+		max-width: 700px;
+		width: 100%;
+	}
+	.card-body{
+		padding: 20px;
+	}
+</style>
+{% if posts %}
+<div class="container" style="border-bottom: 20px solid #bdbdbd">
+	<div class="row">
+		<!-- Blog Post -->
+		<div class="card align-items-center">
+			{% if p.header_image %}
+				<a href="{{ p.get_absolute_url }}">
+					<img class="card-body" src="{{ p.header_image.url }}" width=200 height=200>
+				</a>
+			{% endif %}
+				<div class="card-body text-center">
+					<a href="{{ p.get_absolute_url }}">
+						<h2 class="card-title">{{p.title}}</h2>
+					</a>
+				</div>
+				<div id="like-section">
+					{% include 'blog/snippets/like_section.html' %}
+				</div>
+				<div class="card-footer text-muted">Posted on {{ p.created }}</div>
+		</div>
+	</div>
+</div>
+{% else %}
+
+<div class="container">
+	<div class="row">
+		<div class="card m-auto">
+			<div class="card-body mt-2 mb-2">
+				<h2 class="card-title">No results</h2>
+				<p class="card-text">There were no results matching the search: "{{ request.GET.q }}"</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endif %}

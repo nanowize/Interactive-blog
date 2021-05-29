@@ -1,0 +1,12 @@
+{% load static %}
+{% if request.user.is_authenticated %}
+    <form action="{% url 'like_post' %}" method="post">
+        {% csrf_token %}
+            <button type="submit" id="like" name="post_id" value="{{ post.id }}"
+            class="btn btn-link btn-sm"><img src="{% static 'thumps-down.png' %}" width=20 height=20></button>
+                {{ total_likes }} Like{{ total_likes|pluralize }}
+            <button type="submit" id="like" name="post_id" value="{{ post.id }}"
+            class="btn btn-link btn-sm"><img src="{% static 'thumps-up.png' %}" width=20 height=20></button>
+    </form>
+{% endif %}
+
